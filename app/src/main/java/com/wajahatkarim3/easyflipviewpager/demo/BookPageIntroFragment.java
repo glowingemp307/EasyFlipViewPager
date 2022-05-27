@@ -12,16 +12,13 @@ import android.widget.TextView;
 
 public class BookPageIntroFragment extends Fragment {
 
-    String title = "";
-    String subtitle = "";
     int imageId;
 
-    public static BookPageIntroFragment newInstance(String title, String subtitle, int imageId)
+    public static BookPageIntroFragment newInstance( int imageId)
     {
         BookPageIntroFragment fragment = new BookPageIntroFragment();
         Bundle args = new Bundle();
-        args.putString("title", title);
-        args.putString("subtitle", subtitle);
+
         args.putInt("imageId", imageId);
         fragment.setArguments(args);
         return fragment;
@@ -32,8 +29,7 @@ public class BookPageIntroFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         imageId = getArguments().getInt("imageId", R.drawable.ic_launcher_background);
-        title = getArguments().getString("title", "");
-        subtitle = getArguments().getString("subtitle", "");
+
     }
 
     @Nullable
@@ -42,11 +38,9 @@ public class BookPageIntroFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_book_page_layout, container, false);
 
         ImageView imageView = rootView.findViewById(R.id.imageView);
-        TextView txtTitle = rootView.findViewById(R.id.textView2);
-        TextView txtSubTitle = rootView.findViewById(R.id.textView3);
 
-        txtTitle.setText(title);
-        txtSubTitle.setText(subtitle);
+
+
         imageView.setImageResource(imageId);
 
         if (imageId == R.drawable.all_about_reading)

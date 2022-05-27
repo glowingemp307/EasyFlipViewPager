@@ -10,7 +10,6 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.wajahatkarim3.easyflipviewpager.BookFlipPageTransformer
-import com.wajahatkarim3.easyflipviewpager.CardFlipPageTransformer
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,22 +19,19 @@ class MainActivity : AppCompatActivity() {
     lateinit var checkEnableScale: CheckBox
 
     var bookFlipTransformer = BookFlipPageTransformer()
-    var cardFlipTransformer = CardFlipPageTransformer()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         radioGroupFlipAnimation = findViewById(R.id.rgFlipAnimation)
+
         checkEnableScale = findViewById(R.id.checkEnableScale)
 
         // Book Flip Transformer
         bookFlipTransformer.isEnableScale = true
         bookFlipTransformer.scaleAmountPercent = 10f
 
-        // Card Flip Transformer
-        cardFlipTransformer.isScalable = false
-        cardFlipTransformer.flipOrientation = CardFlipPageTransformer.VERTICAL
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = findViewById(R.id.pager)
@@ -45,13 +41,7 @@ class MainActivity : AppCompatActivity() {
 
         updatePagerConfigs()
 
-        radioGroupFlipAnimation.setOnCheckedChangeListener { radioGroup, id ->
-            updatePagerConfigs()
-        }
 
-        checkEnableScale.setOnCheckedChangeListener { compoundButton, value ->
-            updatePagerConfigs()
-        }
     }
 
     fun updatePagerConfigs()
@@ -62,10 +52,7 @@ class MainActivity : AppCompatActivity() {
                 bookFlipTransformer.isEnableScale = checkEnableScale.isChecked
                 mPager.setPageTransformer(true, bookFlipTransformer)
             }
-            R.id.radioCardFlip -> {
-                cardFlipTransformer.isScalable = checkEnableScale.isChecked
-                mPager.setPageTransformer(true, cardFlipTransformer)
-            }
+
         }
     }
 
@@ -75,12 +62,7 @@ class MainActivity : AppCompatActivity() {
 
         constructor(fm: FragmentManager) : super(fm)
         {
-            val titles = arrayOf(
-                    "Book Onboarding",
-                    "Poker Card",
-                    "Pakistan Gallery",
-                    "ViewPager2 Demo"
-            )
+
 
             val imageIds = intArrayOf(
                     R.drawable.books_snap,
@@ -91,7 +73,7 @@ class MainActivity : AppCompatActivity() {
 
             for (i in 0 until imageIds.size)
             {
-                var frag = GalleryImageFragment.newInstance(titles[i], null, imageIds[i])
+                var frag = GalleryImageFragment.newInstance( imageIds[i])
                 fragmentsList.add(frag)
             }
         }
